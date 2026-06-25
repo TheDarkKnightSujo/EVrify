@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+sqlalchemy
+asyncpg
+psycopg2-binary
+geoalchemy2
+httpx
+pydantic
+playwright
+beautifulsoup4
+praw
+groq
+upstash-redis
+pytest
