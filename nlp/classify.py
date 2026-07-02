@@ -24,8 +24,11 @@ Return exactly this JSON format:
 def classify_review(text):
     try:
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
-            messages=[{"role": "user", "content": PROMPT_TEMPLATE.format(review_text=text[:500])}],
+            model="llama-3.1-8b-instant",
+            messages=[{
+                "role": "user",
+                "content": PROMPT_TEMPLATE.format(review_text=text[:500])
+            }],
             max_tokens=100,
             temperature=0.1,
         )
@@ -37,12 +40,14 @@ def classify_review(text):
 
 def run_classification():
     conn = psycopg2.connect(os.getenv("DATABASE_URL"))
-    cur = conn.cursor()
+    cur  = conn.cursor()
 
-    # Get unclassified reviews
-    cur.execute("SELECT id, review_text FROM reviews WHERE sentiment IS NULL AND review_text IS NOT NULL")
+    cur.execute("""
+        SELECT id, review_text FROM reviews
+        WHERE sentiment IS NULL AND review_text IS NOT NULL
+    """)
     reviews = cur.fetchall()
-    print(f"Classifying {len(reviews)} reviews...")
+    print(f"Classifying {len(reviews)} unscored reviews...")
 
     for rev_id, text in reviews:
         result = classify_review(text)
@@ -51,7 +56,7 @@ def run_classification():
             SET sentiment = %s, issues = %s, confidence = %s
             WHERE id = %s
         """, (result["sentiment"], result["issues"], result["confidence"], rev_id))
-        time.sleep(0.5)   # stay within free rate limits
+        time.sleep(0.5)   # stay within Groq free rate limits
 
     conn.commit()
     cur.close()
@@ -59,12 +64,14 @@ def run_classification():
     print("Classification complete.")
 
 def compute_reliability_scores():
+    """
+    Recency-weighted sentiment scoring per station.
+    positive = 100 pts, neutral = 50 pts, negative = 0 pts.
+    Last 30 days = weight 2.0, last 90 days = 1.5, older = 1.0.
+    """
     conn = psycopg2.connect(os.getenv("DATABASE_URL"))
-    cur = conn.cursor()
+    cur  = conn.cursor()
 
-    # Recency-weighted sentiment scoring:
-    # positive = 100 pts, neutral = 50 pts, negative = 0 pts
-    # Reviews in last 30 days get weight 2.0, last 90 days = 1.5, older = 1.0
     cur.execute("""
         UPDATE stations s
         SET reliability_score = sub.score
