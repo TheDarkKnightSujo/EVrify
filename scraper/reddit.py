@@ -1,3 +1,4 @@
+# pyrefly: ignore [missing-import]
 import praw
 import psycopg2
 import os

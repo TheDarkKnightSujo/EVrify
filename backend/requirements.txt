@@ -13,3 +13,5 @@ praw
 groq
 upstash-redis
 pytest
+google-play-scraper
+lxml

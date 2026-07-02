@@ -1,0 +1,41 @@
+Data Access Request Answers
+
+**Your email address**
+suhaasn2006@gmail.com
+
+**Which role best describes your reason for requesting API access?**
+I’m a developer
+
+**What is your inquiry?**
+I’m a developer and want to build a Reddit App that does not work in the Devvit ecosystem.
+
+**Reddit account name**
+AdOrdinary9285
+
+**What benefit/purpose will the bot/app have for Redditors?**
+Our application is an Electric Vehicle (EV) Route Planner designed to help drivers confidently navigate long-distance trips. By reading public discussions on Reddit, we aggregate real-world experiences, reliability reports, and functional statuses of EV charging stations (e.g., identifying chargers that are broken, ICE'd, or consistently reliable). This surfaces the highly valuable, community-driven insights created by Redditors directly into a routing map, ensuring EV drivers have the most up-to-date information on charging infrastructure based on actual user experiences. 
+
+**Provide a detailed description of what the Bot/App will be doing on the Reddit platform.**
+The application is strictly a read-only data ingestion script and will not post, comment, upvote, downvote, or perform any write actions on the Reddit platform. 
+
+Specifically, the backend uses the PRAW library to passively search for discussions related to EV charging stations using keywords such as "charging station", "charger broken", "EV charging", and "fast charger". It searches exclusively within EV-focused communities (e.g., r/electricvehicles, r/ChargingStations, r/India, r/IndianEVs).
+
+When relevant posts are found (for example, a user posting *"The fast charger at XYZ Mall is currently out of order"*), our script retrieves the post title and body text. The data is then ingested into our database to cross-reference with real-world charging station locations on our external EV route planning map. 
+
+**Example API usage pattern:**
+1. Search queries are made targeting the subreddits: `subreddit.search('charger broken', limit=50, time_filter='month')`
+2. Post titles and body text are read from the resulting posts to extract context about the charger's status.
+3. No user personally identifiable information (PII) is scraped or stored; only the textual context of the charging station status is retained.
+
+
+**What is missing from Devvit that prevents building on that platform?**
+Our project is a standalone, external web application (a mapping and routing engine) that exists outside of the Reddit ecosystem. Devvit is designed for building interactive experiences, mini-apps, and moderation tools *within* the Reddit UI. Because our core product is a full-stack external application that merely ingests Reddit data via a backend Python script to enrich our own database, the Devvit platform is not applicable to our use case.
+
+**Provide a link to source code or platform that will access the API.**
+https://github.com/TheDarkKnightSujo/EVRoutePlanner
+
+**What subreddits do you intend to use the bot/app in?**
+r/electricvehicles, r/ChargingStations, r/India, r/IndianEVs
+
+**If applicable, what username will you be operating this Bot/App under?(optional)**
+AdOrdinary9285

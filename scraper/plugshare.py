@@ -16,7 +16,7 @@ async def scrape_station(page, station_id, ps_station_id):
         await page.goto(url, timeout=30000)
         await page.wait_for_timeout(2000)
 
-        # Extract review elements
+        # Extract review elements (inspect the page to confirm selectors)
         reviews = await page.query_selector_all(".review-item")
         results = []
         for rev in reviews[:10]:  # cap at 10 per station

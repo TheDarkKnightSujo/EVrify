@@ -1,9 +1,7 @@
-name: Weekly station data refresh
-
 on:
   schedule:
     - cron: '0 2 * * 0'    # Every Sunday at 2 AM UTC
-  workflow_dispatch:         # Also allow manual trigger
+  workflow_dispatch:         # Allow manual trigger from GitHub UI
 
 jobs:
   scrape:
@@ -19,16 +17,52 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r backend/requirements.txt
-          playwright install chromium
+          playwright install chromium --with-deps
 
-      - name: Run OCM seeder
+      - name: Seed from Open Charge Map (India)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python backend/seed_stations.py
 
-      - name: Run Reddit scraper
+      - name: Run Google Maps scraper (primary India source)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scraper/google_maps.py
+
+      - name: Run PlugShare scraper
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scraper/plugshare.py
+
+      - name: Run Reddit scraper (r/IndianEVs focused)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
         run: python scraper/reddit.py
+
+      - name: Run Team-BHP forum scraper
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scraper/team_bhp.py
+
+      - name: Run App Store / Play Store review scraper
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scraper/app_reviews.py
+
+      - name: Run Trustpilot scraper
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scraper/trustpilot.py
+
+      - name: Run Google News scraper
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scraper/news.py
+
+      - name: Run NLP classification on new reviews
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: python nlp/classify.py
