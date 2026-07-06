@@ -1,18 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Leaflet maps require a explicit container size to render properly */
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 html, body, #root {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 
 .leaflet-container {
   width: 100%;
   height: 100%;
   z-index: 0;
+}
+
+@keyframes wire-flow {
+  0% {
+    stroke-dashoffset: 2000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.wire-flow-animate {
+  stroke-dasharray: 100 200;
+  animation: wire-flow 8s linear infinite;
 }
