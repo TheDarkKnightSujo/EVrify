@@ -2,10 +2,11 @@ import React from 'react';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import { Link } from 'react-router-dom';
+import EVChargingScene from '../components/common/EVChargingScene';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-[#F4F0E6] font-sans text-[#1A3C2E] overflow-x-hidden selection:bg-[#4CAF7D]/30">
+    <div className="min-h-screen bg-[#F4F0E6] font-sans text-[#1A3C2E] overflow-x-hidden">
       <Navbar />
 
       {/* Hero Section */}
@@ -52,31 +53,35 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Right Graphic - Blocky EV */}
+        {/* Right Graphic - 3D Car Model */}
         <div className="md:col-span-5 flex justify-center items-center relative h-[400px]">
-          {/* Shadow ellipse */}
-          <div className="absolute bottom-16 w-64 h-16 bg-black/10 rounded-[100%] blur-sm"></div>
-          
-          {/* CSS Isometric Car */}
-          <div className="relative w-64 h-48 z-10 -mt-12">
-            {/* Main Body */}
-            <div className="absolute bottom-10 left-4 w-56 h-20 bg-[#122B20] rounded-sm border-t border-l border-[#1A3C2E]/50">
-              {/* Headlights */}
-              <div className="absolute top-8 left-4 w-6 h-3 bg-[#E6F4ED] rounded-sm shadow-[0_0_10px_#4CAF7D]"></div>
-              <div className="absolute top-8 right-4 w-6 h-3 bg-[#E6F4ED] rounded-sm shadow-[0_0_10px_#4CAF7D]"></div>
-              {/* Grille accent */}
-              <div className="absolute top-10 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#4CAF7D] rounded-full"></div>
-            </div>
-            
-            {/* Top Cabin */}
-            <div className="absolute bottom-30 left-12 w-40 h-16 bg-[#0B1A13] rounded-t-sm skew-x-12 transform -translate-x-4 border-t border-l border-[#1A3C2E]/50"></div>
-            
-            {/* Wheels */}
-            <div className="absolute bottom-6 left-8 w-12 h-14 bg-black rounded-lg transform -skew-y-12"></div>
-            <div className="absolute bottom-6 right-8 w-12 h-14 bg-black rounded-lg transform skew-y-12"></div>
-          </div>
+          <EVChargingScene />
         </div>
       </section>
+
+      {/* Scrolling Marquee */}
+      <div className="w-full bg-[#1A3C2E] py-4 overflow-hidden flex">
+        <div className="flex whitespace-nowrap animate-marquee items-center text-[11px] md:text-[13px] font-bold tracking-[0.2em] text-[#E6F4ED] w-max">
+          {[...Array(4)].map((_, i) => (
+            <React.Fragment key={i}>
+              <span className="mx-8">TEAM-BHP FORUMS</span>
+              <span className="text-[#4CAF7D] text-lg">•</span>
+              <span className="mx-8">PLAY STORE REVIEWS</span>
+              <span className="text-[#4CAF7D] text-lg">•</span>
+              <span className="mx-8">PLUGSHARE</span>
+              <span className="text-[#4CAF7D] text-lg">•</span>
+              <span className="mx-8">GOOGLE NEWS</span>
+              <span className="text-[#4CAF7D] text-lg">•</span>
+              <span className="mx-8">POWERED BY</span>
+              <span className="text-[#4CAF7D] text-lg">•</span>
+              <span className="mx-8">GOOGLE MAPS REVIEWS</span>
+              <span className="text-[#4CAF7D] text-lg">•</span>
+              <span className="mx-8">REDDIT</span>
+              <span className="text-[#4CAF7D] text-lg">•</span>
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
 
       {/* Features Section */}
       <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#1A3C2E]/5">

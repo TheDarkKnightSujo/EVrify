@@ -5,6 +5,7 @@ CREATE TABLE stations (
     address         TEXT,
     connector_types TEXT[],
     total_stalls    INTEGER,
+    network         TEXT,
     source          TEXT,          -- 'ocm', 'nrel', 'plugshare'
     source_url      TEXT,
     reliability_score FLOAT DEFAULT NULL,
@@ -23,6 +24,8 @@ CREATE TABLE reviews (
     issues          TEXT[],        -- ['broken', 'slow', 'wait', 'great']
     confidence      FLOAT,
     source          TEXT,
+    network_operator TEXT,
+    review_hash     VARCHAR(64) UNIQUE,
     created_at      TIMESTAMP DEFAULT NOW()
 );
 

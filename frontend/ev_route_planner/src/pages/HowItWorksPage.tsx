@@ -252,17 +252,7 @@ const HowItWorksPage = () => {
           </div>
         </section>
 
-        {/* Ending */}
-        <section className="py-24 flex justify-center">
-          <div className="bg-white p-12 rounded-[2rem] shadow-xl border border-[#1A3C2E]/5 text-center transform transition-transform hover:-translate-y-2">
-            <div className="w-16 h-16 mx-auto bg-[#4CAF7D]/10 rounded-full flex items-center justify-center text-[#4CAF7D] mb-6">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8"><path d="M11 21l-1-1 3-9H8l10-9 1 1-3 9h5l-10 9z"></path></svg>
-            </div>
-            <h3 className="text-3xl font-serif font-bold text-[#1A3C2E] mb-2">Fully charged.</h3>
-            <p className="text-[#1A3C2E]/60 text-sm font-medium">The cable connects here.</p>
-          </div>
-        </section>
-        
+
       </div>
       
       <Footer />
