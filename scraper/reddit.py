@@ -4,7 +4,7 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 reddit = praw.Reddit(
     client_id=os.getenv("REDDIT_CLIENT_ID"),

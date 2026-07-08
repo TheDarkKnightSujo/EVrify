@@ -8,11 +8,23 @@ load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 
 MOUTHSHUT_PAGES = {
-    "Ather":          "https://www.mouthshut.com/product-reviews/Ather-Energy-reviews-925972456",
-    "Tata EZ Charge": "https://www.mouthshut.com/product-reviews/Tata-Power-EZ-Charge-reviews-926001234",
-    "Statiq":         "https://www.mouthshut.com/product-reviews/Statiq-EV-Charging-reviews-926001235",
-    "ChargeZone":     "https://www.mouthshut.com/product-reviews/ChargeZone-EV-reviews-926001236",
+    "Ather 450X":             "https://www.mouthshut.com/product-reviews/Ather-450X-reviews-925997672",
+    "Ather 450":              "https://www.mouthshut.com/product-reviews/Ather-450-reviews-925958742",
+    "Tata Nexon EV":          "https://www.mouthshut.com/product-reviews/Tata-Nexon-EV-reviews-925994273",
+    "Tata Punch EV":          "https://www.mouthshut.com/product-reviews/Tata-Punch-EV-reviews-926017770",
+    "Tata Tiago EV":          "https://www.mouthshut.com/product-reviews/Tata-Tiago-EV-reviews-926006456",
+    "Ola S1 Pro":             "https://www.mouthshut.com/product-reviews/Ola-S1-Pro-reviews-925997871",
+    "Ola S1":                 "https://www.mouthshut.com/product-reviews/Ola-S1-reviews-926019515",
+    "Ola S1 X":               "https://www.mouthshut.com/product-reviews/Ola-S1-X-reviews-926107386",
+    "TVS iQube":              "https://www.mouthshut.com/product-reviews/TVS-iQube-Electric-reviews-925997876",
+    "Mahindra XUV400 EV":     "https://www.mouthshut.com/product-reviews/Mahindra-XUV400-EV-reviews-926054817",
+    "MG ZS EV":               "https://www.mouthshut.com/product-reviews/MG-ZS-EV-reviews-925983794",
+    "MG Comet EV":            "https://www.mouthshut.com/product-reviews/MG-Comet-EV-reviews-926012437",
+    "Hyundai Kona Electric":  "https://www.mouthshut.com/product-reviews/Hyundai-Kona-Electric-reviews-925985871",
+    "BYD Atto 3":             "https://www.mouthshut.com/product-reviews/BYD-Atto-3-reviews-926063991",
+    "Zevpoint Charger":       "https://www.mouthshut.com/product-reviews/ZEVPOINT-reviews-926084666",
 }
+
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",

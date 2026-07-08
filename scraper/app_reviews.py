@@ -3,14 +3,14 @@ import os, time
 from dotenv import load_dotenv
 from google_play_scraper import app, reviews, Sort
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 # India EV charging app package IDs on Google Play Store
 APPS = {
-    "Ather Energy":         "com.atherspace.atherapp",
-    "Tata Power EZ Charge": "com.tatapower.evcharging",
-    "Statiq":               "com.statiq.evclient",
-    "ChargeZone":           "com.chargezone.app",
+    "Ather Energy":         "com.athermobileapp",
+    "Tata Power EZ Charge": "com.tatapower.evapp",
+    "Statiq":               "com.statiq",
+    "ChargeZone":           "com.chargezone",
 }
 
 def fetch_app_reviews(app_id, app_name, count=200):
@@ -43,12 +43,13 @@ def run_app_review_scraper():
             text = rev.get("content", "").strip()
             if text and len(text) > 20:
                 cur.execute("""
-                    INSERT INTO reviews (review_text, rating, review_date, source)
-                    VALUES (%s, %s, %s, 'play_store')
+                    INSERT INTO reviews (review_text, rating, review_date, source, network_operator)
+                    VALUES (%s, %s, %s, 'play_store', %s)
                 """, (
                     text[:1500],
                     float(rev.get("score", 0)),
                     rev.get("at"),          # datetime object
+                    app_name,
                 ))
                 total += 1
         conn.commit()

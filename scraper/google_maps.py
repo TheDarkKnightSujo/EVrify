@@ -4,7 +4,7 @@ import psycopg2
 import os, time, random
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 async def scrape_google_reviews(page, station_name, address):
     query   = f"{station_name} EV charging {address}"

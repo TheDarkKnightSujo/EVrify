@@ -4,7 +4,7 @@ import psycopg2
 import os, time
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 # Map network operator name (as stored in stations.network_operator)
 # to their Trustpilot review page URL — India networks

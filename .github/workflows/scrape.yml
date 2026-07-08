@@ -34,12 +34,25 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python scraper/plugshare.py
 
-      - name: Run Reddit scraper (r/IndianEVs focused)
+      - name: Run MouthShut scraper (India EV network reviews)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
-          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
-        run: python scraper/reddit.py
+        run: python scraper/mouthshut.py
+
+      - name: Run YouTube comments scraper
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scraper/youtube_comments.py
+
+      - name: Run Quora scraper (India EV Q&A)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scraper/quora.py
+
+      - name: Run Nitter scraper (public X mirror — graceful fallback)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python scraper/nitter.py
 
       - name: Run Team-BHP forum scraper
         env:
@@ -51,10 +64,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python scraper/app_reviews.py
 
-      - name: Run Trustpilot scraper
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python scraper/trustpilot.py
+      # Trustpilot step REMOVED — see Task 3.6 note
 
       - name: Run Google News scraper
         env:

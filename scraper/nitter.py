@@ -16,12 +16,24 @@ NITTER_INSTANCES = [
 SEARCH_QUERIES = [
     "EV charging India broken",
     "Ather charger not working",
+    "Ather grid charging slow",
     "Tata EZ Charge broken",
+    "Tata Power EZ Charge problems",
     "Statiq charger down India",
+    "Statiq EV charger broken",
     "ChargeZone broken India",
+    "ChargeZone charger failure India",
+    "Zeon charger not working",
+    "Zeon charging station broken",
+    "Jio-bp pulse charger broken",
+    "Jio-bp charger issues",
+    "Glida charger down India",
+    "Shell Recharge charger issues India",
     "EV charging station India experience",
     "electric vehicle charger India review",
+    "highway EV charger broken India",
 ]
+
 
 async def find_working_instance(page):
     for instance in NITTER_INSTANCES:

@@ -3,7 +3,7 @@ import psycopg2
 import os, json, time
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
@@ -31,8 +31,16 @@ def classify_review(text):
             }],
             max_tokens=100,
             temperature=0.1,
+            response_format={"type": "json_object"}
         )
         raw = response.choices[0].message.content.strip()
+        if raw.startswith("```"):
+            lines = raw.split("\n")
+            if lines[0].startswith("```"):
+                lines = lines[1:]
+            if lines[-1].startswith("```"):
+                lines = lines[:-1]
+            raw = "\n".join(lines).strip()
         return json.loads(raw)
     except Exception as e:
         print(f"Classification error: {e}")
@@ -56,9 +64,10 @@ def run_classification():
             SET sentiment = %s, issues = %s, confidence = %s
             WHERE id = %s
         """, (result["sentiment"], result["issues"], result["confidence"], rev_id))
-        time.sleep(0.5)   # stay within Groq free rate limits
+        conn.commit()  # Commit immediately to preserve progress and allow real-time monitoring
+        print(f"Classified review ID {rev_id} - Sentiment: {result['sentiment']}")
+        time.sleep(2.0)   # stay within Groq free rate limits (30 RPM)
 
-    conn.commit()
     cur.close()
     conn.close()
     print("Classification complete.")
@@ -68,6 +77,7 @@ def compute_reliability_scores():
     Recency-weighted sentiment scoring per station.
     positive = 100 pts, neutral = 50 pts, negative = 0 pts.
     Last 30 days = weight 2.0, last 90 days = 1.5, older = 1.0.
+    Divided by the sum of weights for a mathematically correct weighted average.
     """
     conn = psycopg2.connect(os.getenv("DATABASE_URL"))
     cur  = conn.cursor()
@@ -77,23 +87,30 @@ def compute_reliability_scores():
         SET reliability_score = sub.score
         FROM (
             SELECT
-                station_id,
+                st.id AS station_id,
                 SUM(
-                    CASE sentiment
+                    CASE r.sentiment
                         WHEN 'positive' THEN 100
                         WHEN 'neutral'  THEN 50
                         ELSE 0
                     END
                     *
                     CASE
-                        WHEN review_date >= NOW() - INTERVAL '30 days' THEN 2.0
-                        WHEN review_date >= NOW() - INTERVAL '90 days' THEN 1.5
+                        WHEN r.review_date >= NOW() - INTERVAL '30 days' THEN 2.0
+                        WHEN r.review_date >= NOW() - INTERVAL '90 days' THEN 1.5
                         ELSE 1.0
                     END
-                ) / NULLIF(COUNT(*), 0) AS score
-            FROM reviews
-            WHERE station_id IS NOT NULL AND sentiment IS NOT NULL
-            GROUP BY station_id
+                ) / NULLIF(SUM(
+                    CASE
+                        WHEN r.review_date >= NOW() - INTERVAL '30 days' THEN 2.0
+                        WHEN r.review_date >= NOW() - INTERVAL '90 days' THEN 1.5
+                        ELSE 1.0
+                    END
+                ), 0) AS score
+            FROM stations st
+            JOIN reviews r ON r.station_id = st.id OR (r.station_id IS NULL AND r.network_operator = st.network_operator)
+            WHERE r.sentiment IS NOT NULL
+            GROUP BY st.id
         ) sub
         WHERE s.id = sub.station_id;
     """)

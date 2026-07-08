@@ -4,7 +4,7 @@ import psycopg2
 import os, time
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 # Team-BHP search URLs for EV charging content
 SEARCH_QUERIES = [
@@ -15,7 +15,15 @@ SEARCH_QUERIES = [
     "ChargeZone review",
     "fast charger broken",
     "highway charging India",
+    "Zeon charger review",
+    "Jio-bp pulse charging",
+    "Glida EV charging",
+    "Shell Recharge review",
+    "highway EV charger broken",
+    "EV charging station queue",
+    "EV charger connection issue",
 ]
+
 
 def fetch_teambhp_posts(query, max_pages=3):
     """

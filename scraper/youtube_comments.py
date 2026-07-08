@@ -7,7 +7,7 @@ from psycopg2.extras import execute_values
 from youtube_search import YoutubeSearch
 from youtube_comment_downloader import YoutubeCommentDownloader
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 # Your required baseline queries from the project specifications
 TARGET_QUERIES = [

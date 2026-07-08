@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from upstash_redis import Redis
 import os, json, hashlib, psycopg2
-from routing.planner import plan_route
+from app.routing.planner import plan_route
 
 router = APIRouter(prefix="/api", tags=["routing"])
 redis  = Redis(url=os.getenv("REDIS_URL"), token=os.getenv("REDIS_TOKEN"))
@@ -51,7 +51,7 @@ def get_station(station_id: int):
                 )
             ) FILTER (WHERE r.id IS NOT NULL) AS reviews
         FROM stations s
-        LEFT JOIN reviews r ON r.station_id = s.id
+        LEFT JOIN reviews r ON r.station_id = s.id OR (r.station_id IS NULL AND r.network_operator = s.network_operator)
         WHERE s.id = %s
         GROUP BY s.id
     """, (station_id,))

@@ -3,7 +3,7 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 # Fetch stations for India (countrycode=IN)
 # Change to US, GB, DE etc. for other regions

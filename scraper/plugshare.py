@@ -4,7 +4,7 @@ import psycopg2
 import os, time, random
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 # PlugShare public station pages are accessible without login
 # We scrape the station detail page for reviews and check-ins

@@ -4,8 +4,7 @@ import psycopg2
 import os, time
 from urllib.parse import quote
 from dotenv import load_dotenv
-
-load_dotenv()
+load_dotenv(os.path.join(os.path.dirname(__file__), '../backend/.env'))
 
 # Search queries targeting charging station news
 NEWS_QUERIES = [
@@ -16,7 +15,18 @@ NEWS_QUERIES = [
     "EV charging network down",
     "Ather charging station problem",
     "Tata EV charger review",
+    "Statiq EV charger not working",
+    "ChargeZone station broken",
+    "Zeon Charging issues India",
+    "Jio-bp pulse charger downtime",
+    "Glida EV charger issues",
+    "highway EV charging complaints India",
+    "EV charger billing issues India",
+    "Mahindra XUV400 charger problem",
+    "MG ZS EV charging fault",
+    "Ola Hypercharger down",
 ]
+
 
 def fetch_google_news(query):
     """
