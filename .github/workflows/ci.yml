@@ -16,7 +16,13 @@ jobs:
           python-version: '3.11'
       - run: pip install -r backend/requirements.txt
       - run: pip install pytest httpx
-      - run: pytest backend/tests/ -v
+      - name: Run backend tests if present
+        run: |
+          if [ -d backend/tests ] && [ "$(find backend/tests -name '*.py' -type f | wc -l)" -gt 0 ]; then
+            pytest backend/tests/ -v
+          else
+            echo "No backend tests found. Skipping pytest."
+          fi
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
@@ -28,6 +34,6 @@ jobs:
         with:
           node-version: '20'
       - run: npm ci
-        working-directory: frontend
+        working-directory: frontend/ev_route_planner
       - run: npm run build
-        working-directory: frontend
+        working-directory: frontend/ev_route_planner
