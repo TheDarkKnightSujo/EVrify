@@ -272,7 +272,8 @@ const RoutePlanner = () => {
     const urlDest = params.get('destination') || '';
     const urlVehicle = params.get('vehicle') || '';
     const urlRange = parseInt(params.get('range') || '0', 10);
-    const urlStops = params.get('stops') ? params.get('stops').split(',').filter(Boolean).map(Number) : [];
+    const stopsParam = params.get('stops');
+    const urlStops = stopsParam ? stopsParam.split(',').filter(Boolean).map(Number) : [];
 
     if (urlOrigin && urlDest) {
       setOrigin(urlOrigin);
