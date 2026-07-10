@@ -18,13 +18,13 @@ const HomePage = () => {
             INDIA-FIRST · OPEN SOURCE
           </div>
           
-          <h1 className="text-6xl md:text-7xl font-bold tracking-tight leading-[1.1] text-[#1A3C2E] mb-8">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] text-[#1A3C2E] mb-8">
             Plan your EV<br />journey<br />
             <span className="font-serif italic text-[#4CAF7D] font-normal">with confidence.</span>
           </h1>
           
           <p className="text-[17px] text-[#1A3C2E]/80 leading-relaxed max-w-lg mb-10">
-            VoltPath scores every charging station in India using real reviews from Google Maps, Reddit, and Team-BHP — so you always know what to expect before you arrive.
+            EVrify scores every charging station in India using real reviews from Google Maps, Reddit, and Team-BHP — so you always know what to expect before you arrive.
           </p>
           
           <div className="flex flex-wrap gap-4 mb-16">
@@ -54,7 +54,7 @@ const HomePage = () => {
         </div>
 
         {/* Right Graphic - 3D Car Model */}
-        <div className="md:col-span-5 flex justify-center items-center relative h-[400px]">
+        <div className="md:col-span-5 flex justify-center items-center relative h-[300px] md:h-[400px] -mt-8 md:-mt-16">
           <EVChargingScene />
         </div>
       </section>
@@ -87,7 +87,7 @@ const HomePage = () => {
       <section className="max-w-7xl mx-auto px-6 py-24 border-t border-[#1A3C2E]/5">
         <div className="mb-16">
           <p className="text-[#4CAF7D] text-xs font-bold tracking-widest uppercase mb-4">THE DIFFERENCE</p>
-          <h2 className="text-5xl md:text-6xl font-bold text-[#1A3C2E]">
+          <h2 className="text-4xl md:text-6xl font-bold text-[#1A3C2E]">
             Built <span className="font-serif italic text-[#4CAF7D] font-normal">differently.</span>
           </h2>
         </div>
@@ -140,11 +140,11 @@ const HomePage = () => {
       <section className="bg-[#163327] text-white py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <p className="text-[#4CAF7D] text-xs font-bold tracking-widest uppercase mb-6">WHAT IS A RELIABILITY SCORE?</p>
-          <h2 className="text-5xl md:text-6xl font-bold mb-24 max-w-2xl leading-[1.1]">
+          <h2 className="text-4xl md:text-6xl font-bold mb-12 md:mb-24 max-w-2xl leading-[1.1]">
             A single number that <span className="font-serif italic text-[#4CAF7D] font-normal">tells the truth.</span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center border-t border-white/10 pt-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 text-center border-t border-white/10 pt-16">
             <div>
               <div className="text-8xl font-bold text-[#4CAF7D] font-mono tracking-tighter mb-4">100</div>
               <div className="text-sm font-bold tracking-widest uppercase text-white/80">POSITIVE REVIEWS</div>

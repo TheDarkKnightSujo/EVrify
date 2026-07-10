@@ -24,7 +24,7 @@ const CarModel = () => {
     }
   }, [scene]);
 
-  return <primitive object={scene} scale={1.2} position={[0, -1, 0]} />;
+  return <primitive object={scene} scale={1.2} position={[0, -0.65, 0]} />;
 };
 
 const ChargingBase = () => {

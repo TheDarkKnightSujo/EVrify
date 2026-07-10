@@ -12,6 +12,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/loading" element={<LoadingPage />} />
         <Route path="/planner" element={<RoutePlanner />} />
+        <Route path="/share" element={<RoutePlanner />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
       </Routes>
     </Router>

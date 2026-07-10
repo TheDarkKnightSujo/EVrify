@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#122B20] text-white pt-24 pb-12 px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 mb-24">
           <div className="md:col-span-5">
             <div className="flex items-center space-x-2 text-white mb-6">
               <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center rounded-bl-none transform -rotate-45 relative overflow-hidden">
@@ -15,9 +15,9 @@ const Footer = () => {
                   </svg>
                 </div>
               </div>
-              <span className="text-xl font-serif font-bold tracking-tight">VoltPath</span>
+              <span className="text-xl font-serif font-bold tracking-tight">EVrify</span>
             </div>
-            <h3 className="text-2xl font-serif italic text-white/90 mb-6">Every mile, greener.</h3>
+            <h3 className="text-2xl font-serif italic text-white/90 mb-6">EVrify your route.</h3>
             <p className="text-white/60 text-[15px] leading-relaxed max-w-sm">
               An India-first EV route planner powered by AI-scored charging station reliability. Built as an open-source portfolio project.
             </p>
@@ -48,7 +48,7 @@ const Footer = () => {
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-[13px] text-white/40">
           <p>Built by @TheDarkKnightSujo · Open source · MIT License</p>
-          <p className="mt-4 md:mt-0">© 2026 VoltPath</p>
+          <p className="mt-4 md:mt-0">© 2026 EVrify</p>
         </div>
       </div>
     </footer>

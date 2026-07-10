@@ -13,8 +13,8 @@ const LoadingPage = () => {
           </div>
         </div>
         
-        {/* VoltPath Text */}
-        <h1 className="text-4xl font-serif tracking-tight">VoltPath</h1>
+        {/* EVrify Text */}
+        <h1 className="text-4xl font-serif tracking-tight">EVrify</h1>
       </div>
 
       <div className="relative w-72 mb-4">
@@ -28,7 +28,7 @@ const LoadingPage = () => {
         <div className="absolute right-[-6px] top-1/2 transform -translate-y-1/2 w-1.5 h-4 bg-white rounded-r z-0"></div>
       </div>
       
-      <p className="text-sm font-medium tracking-wide text-gray-300">Charging VoltPath...</p>
+      <p className="text-sm font-medium tracking-wide text-gray-300">Charging EVrify...</p>
     </div>
   );
 };

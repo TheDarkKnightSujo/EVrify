@@ -37,17 +37,17 @@ const HowItWorksPage = () => {
         {/* Header Section */}
         <section className="pt-24 pb-32 max-w-3xl">
           <p className="text-[#4CAF7D] text-xs font-bold tracking-widest uppercase mb-6">UNDER THE HOOD</p>
-          <h1 className="text-6xl md:text-7xl font-bold tracking-tight leading-[1.1] text-[#1A3C2E] mb-8">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] text-[#1A3C2E] mb-8">
             Six sources.<br />
             One score. <span className="font-serif italic text-[#4CAF7D] font-normal">Zero guesswork.</span>
           </h1>
           <p className="text-xl text-[#1A3C2E]/80 leading-relaxed max-w-2xl">
-            Here is exactly how VoltPath turns thousands of raw reviews into a number you can trust.
+            Here is exactly how EVrify turns thousands of raw reviews into a number you can trust.
           </p>
         </section>
 
         {/* Step 01 */}
-        <section className="py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row items-center gap-16">
+        <section className="py-12 md:py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row items-center gap-8 md:gap-16">
           <div className="md:w-1/2">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#4CAF7D]/10 text-[#4CAF7D] text-xs font-bold tracking-widest uppercase mb-6">
               STEP 01 · WE START WITH EVERY CHARGER IN INDIA
@@ -81,7 +81,7 @@ const HowItWorksPage = () => {
         </section>
 
         {/* Step 02 */}
-        <section className="py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row-reverse items-center gap-16">
+        <section className="py-12 md:py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16">
           <div className="md:w-1/2">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#4CAF7D]/10 text-[#4CAF7D] text-xs font-bold tracking-widest uppercase mb-6">
               STEP 02 · REAL-TIME REVIEW COLLECTION
@@ -115,7 +115,7 @@ const HowItWorksPage = () => {
         </section>
 
         {/* Step 03 */}
-        <section className="py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row items-center gap-16">
+        <section className="py-12 md:py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row items-center gap-8 md:gap-16">
           <div className="md:w-1/2">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#4CAF7D]/10 text-[#4CAF7D] text-xs font-bold tracking-widest uppercase mb-6">
               STEP 03 · A LANGUAGE MODEL READS EVERY REVIEW
@@ -137,7 +137,7 @@ const HowItWorksPage = () => {
                   <span className="w-2 h-2 rounded-full bg-[#4CAF7D]"></span>
                   llama-3 · classify_review()
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <div className="text-white/40 mb-2 uppercase text-[10px] tracking-widest">RAW REVIEW</div>
                     <p className="text-white/80 leading-relaxed mb-2">"One charger has been down for a week. Attendant said parts are on the way but this is my second visit."</p>
@@ -161,7 +161,7 @@ const HowItWorksPage = () => {
         </section>
 
         {/* Step 04 */}
-        <section className="py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row-reverse items-center gap-16">
+        <section className="py-12 md:py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16">
           <div className="md:w-1/2">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#4CAF7D]/10 text-[#4CAF7D] text-xs font-bold tracking-widest uppercase mb-6">
               STEP 04 · RECENCY-WEIGHTED SCORING
@@ -199,7 +199,7 @@ const HowItWorksPage = () => {
         </section>
 
         {/* Step 05 */}
-        <section className="py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row items-center gap-16">
+        <section className="py-12 md:py-24 border-t border-[#1A3C2E]/10 flex flex-col md:flex-row items-center gap-8 md:gap-16">
           <div className="md:w-1/2">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#4CAF7D]/10 text-[#4CAF7D] text-xs font-bold tracking-widest uppercase mb-6">
               STEP 05 · CONSTRAINT-AWARE ROUTING

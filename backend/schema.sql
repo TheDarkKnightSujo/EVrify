@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS postgis;
+
 CREATE TABLE stations (
     id              SERIAL PRIMARY KEY,
     name            TEXT NOT NULL,
@@ -5,7 +7,7 @@ CREATE TABLE stations (
     address         TEXT,
     connector_types TEXT[],
     total_stalls    INTEGER,
-    network         TEXT,
+    network_operator TEXT,
     source          TEXT,          -- 'ocm', 'nrel', 'plugshare'
     source_url      TEXT,
     reliability_score FLOAT DEFAULT NULL,

@@ -12,6 +12,12 @@ services:
       POSTGRES_DB: neondb
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d neondb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7-alpine
@@ -26,15 +32,30 @@ services:
     container_name: ev_route_backend
     ports:
       - "8000:8000"
+    env_file:
+      - ./backend/.env
     environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/neondb
       - REDIS_URL=redis://redis:6379/0
-      - REDIS_TOKEN=dummy_token
-      - GROQ_API_KEY=dummy_key
-      - ORS_API_KEY=dummy_key
+    volumes:
+      - ./backend:/app
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./frontend/ev_route_planner
+      dockerfile: Dockerfile
+    container_name: ev_route_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/ev_route_planner:/app
+      - /app/node_modules
+    depends_on:
+      - backend
 
 volumes:
   pgdata:

@@ -12,6 +12,7 @@ beautifulsoup4
 praw
 groq
 upstash-redis
+redis
 pytest
 google-play-scraper
 lxml

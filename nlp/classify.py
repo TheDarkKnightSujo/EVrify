@@ -82,6 +82,26 @@ def compute_reliability_scores():
     conn = psycopg2.connect(os.getenv("DATABASE_URL"))
     cur  = conn.cursor()
 
+    # Retroactively link orphaned reviews to their respective networks based on text and source
+    cur.execute("""
+        UPDATE reviews
+        SET network_operator = 
+            CASE 
+                WHEN review_text ILIKE '%statiq%' THEN 'Statiq'
+                WHEN review_text ILIKE '%chargezone%' OR review_text ILIKE '%charge zone%' THEN 'ChargeZone'
+                WHEN review_text ILIKE '%tata power%' OR review_text ILIKE '%tata ev%' THEN 'Tata Power'
+                WHEN review_text ILIKE '%ather%' THEN 'Ather Energy'
+                WHEN review_text ILIKE '%zeon%' THEN 'Zeon Charging'
+                WHEN review_text ILIKE '%jio%' THEN 'Jio-BP'
+                WHEN source ILIKE '%trustpilot_statiq%' THEN 'Statiq'
+                WHEN source ILIKE '%trustpilot_chargezone%' THEN 'ChargeZone'
+                WHEN source ILIKE '%trustpilot_ather%' THEN 'Ather Energy'
+            END
+        WHERE network_operator IS NULL;
+    """)
+    conn.commit()
+
+    # Update reliability scores per station using a case-insensitive join on st.network
     cur.execute("""
         UPDATE stations s
         SET reliability_score = sub.score
@@ -108,7 +128,7 @@ def compute_reliability_scores():
                     END
                 ), 0) AS score
             FROM stations st
-            JOIN reviews r ON r.station_id = st.id OR (r.station_id IS NULL AND r.network_operator = st.network_operator)
+            JOIN reviews r ON r.station_id = st.id OR (r.station_id IS NULL AND LOWER(r.network_operator) = LOWER(st.network_operator))
             WHERE r.sentiment IS NOT NULL
             GROUP BY st.id
         ) sub

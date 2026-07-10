@@ -1,22 +1,34 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from upstash_redis import Redis
 import os, json, hashlib, psycopg2
 from app.routing.planner import plan_route
 
 router = APIRouter(prefix="/api", tags=["routing"])
-redis  = Redis(url=os.getenv("REDIS_URL"), token=os.getenv("REDIS_TOKEN"))
+
+redis_url = os.getenv("REDIS_URL", "redis://redis:6379/0")
+redis_token = os.getenv("REDIS_TOKEN", "")
+
+if redis_url.startswith("http://") or redis_url.startswith("https://"):
+    from upstash_redis import Redis
+    redis = Redis(url=redis_url, token=redis_token)
+else:
+    import redis as standard_redis
+    redis = standard_redis.from_url(redis_url, decode_responses=True)
 
 class RouteRequest(BaseModel):
     vehicle_name:     str
     claimed_range_km: int
     origin:           str
     destination:      str
+    pick_own_chargers: bool = False
+    custom_stops:     list[int] = None
 
 @router.post("/route")
 def get_route(req: RouteRequest):
-    cache_key = hashlib.md5(
-        f"{req.origin}|{req.destination}|{req.claimed_range_km}".encode()
+    # Include custom stops and pick_own_chargers in the cache key to avoid cache collisions
+    stops_repr = sorted(req.custom_stops) if req.custom_stops else []
+    cache_key = "evrify:v5:" + hashlib.md5(
+        f"{req.origin}|{req.destination}|{req.claimed_range_km}|{req.pick_own_chargers}|{stops_repr}".encode()
     ).hexdigest()
 
     cached = redis.get(cache_key)
@@ -24,11 +36,19 @@ def get_route(req: RouteRequest):
         return json.loads(cached)
 
     try:
-        result = plan_route(req.origin, req.destination, req.claimed_range_km)
+        result = plan_route(
+            req.origin, 
+            req.destination, 
+            req.claimed_range_km, 
+            custom_stops=req.custom_stops, 
+            pick_own_chargers=req.pick_own_chargers
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-    redis.setex(cache_key, 3600, json.dumps(result))  # cache 1 hour
+    # Only cache if route was fully successful with no warnings
+    if not result.get("warnings"):
+        redis.setex(cache_key, 3600, json.dumps(result))  # cache 1 hour
     return result
 
 @router.get("/stations/{station_id}")
@@ -51,7 +71,7 @@ def get_station(station_id: int):
                 )
             ) FILTER (WHERE r.id IS NOT NULL) AS reviews
         FROM stations s
-        LEFT JOIN reviews r ON r.station_id = s.id OR (r.station_id IS NULL AND r.network_operator = s.network_operator)
+        LEFT JOIN reviews r ON r.station_id = s.id OR (r.station_id IS NULL AND LOWER(r.network_operator) = LOWER(s.network_operator))
         WHERE s.id = %s
         GROUP BY s.id
     """, (station_id,))

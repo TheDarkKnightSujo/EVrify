@@ -55,8 +55,27 @@ def insert_stations(stations):
     conn.close()
     print(f"Inserted {inserted} stations.")
 
+def is_db_seeded():
+    try:
+        conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+        cur = conn.cursor()
+        cur.execute("SELECT COUNT(*) FROM stations")
+        count = cur.fetchone()[0]
+        cur.close()
+        conn.close()
+        return count > 0
+    except Exception as e:
+        print(f"Could not check if DB is seeded: {e}")
+        return False
+
 if __name__ == "__main__":
-    print("Fetching from Open Charge Map...")
-    data = fetch_ocm_stations()
-    print(f"Fetched {len(data)} stations. Inserting...")
-    insert_stations(data)
+    if is_db_seeded():
+        print("Database already contains stations. Skipping seeding.")
+    else:
+        print("Fetching from Open Charge Map...")
+        try:
+            data = fetch_ocm_stations()
+            print(f"Fetched {len(data)} stations. Inserting...")
+            insert_stations(data)
+        except Exception as e:
+            print(f"Seeding failed: {e}")

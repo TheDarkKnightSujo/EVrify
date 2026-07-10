@@ -1,6 +1,6 @@
-# EV Route Planner 🔋🚗
+# EVrify 🔋🚗
 
-An end-to-end electric vehicle route planning application with NLP-scored charging station recommendations based on qualitative reviews.
+An end-to-end electric vehicle route planning application with NLP-scored charging station recommendations based on qualitative reviews. *EVrify your route.*
 
 ## Technical Architecture
 
@@ -24,7 +24,7 @@ graph LR
 
 ## Tech Stack Overview
 
-- **Frontend**: React (TypeScript), Leaflet, OpenStreetMap
+- **Frontend**: React (TypeScript), Leaflet, OpenStreetMap, Vite
 - **Backend**: FastAPI (Python), Uvicorn
 - **Database**: PostgreSQL with PostGIS extension (hosted on Neon)
 - **Cache**: Redis (hosted on Upstash)
@@ -39,7 +39,7 @@ graph LR
 ## Local Setup
 
 ### Backend Setup
-1. Clone the repository and navigate to the backend directory:
+1. Navigate to the backend directory:
    ```bash
    cd backend
    ```
@@ -48,6 +48,8 @@ graph LR
    python -m venv venv
    # On Windows
    venv\Scripts\activate
+   # On macOS/Linux
+   source venv/bin/activate
    ```
 3. Install dependencies:
    ```bash
@@ -65,7 +67,7 @@ graph LR
 ### Frontend Setup
 1. Navigate to the frontend directory:
    ```bash
-   cd ../frontend
+   cd frontend/ev_route_planner
    ```
 2. Install Node dependencies:
    ```bash
@@ -73,8 +75,9 @@ graph LR
    ```
 3. Start the application:
    ```bash
-   npm start
+   npm run dev
    ```
 
 ## License
 MIT License
+
