@@ -64,15 +64,19 @@ const API_BASE = import.meta.env.VITE_API_BASE ||
     ? 'http://localhost:8000'
     : 'https://evrify.onrender.com');
 
-// Custom Map Controller to handle bounds adjustment
-const MapController = ({ points }: { points: [number, number][] }) => {
+// Custom Map Controller to handle bounds adjustment and size invalidation on tab change
+const MapController = ({ points, activeMobileTab }: { points: [number, number][]; activeMobileTab: string }) => {
   const map = useMap();
   useEffect(() => {
-    if (points && points.length > 0) {
-      const bounds = L.latLngBounds(points);
-      map.fitBounds(bounds, { padding: [80, 80], maxZoom: 14 });
-    }
-  }, [points, map]);
+    const timer = setTimeout(() => {
+      map.invalidateSize();
+      if (points && points.length > 0) {
+        const bounds = L.latLngBounds(points);
+        map.fitBounds(bounds, { padding: [80, 80], maxZoom: 14 });
+      }
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [points, map, activeMobileTab]);
   return null;
 };
 
@@ -542,7 +546,7 @@ const RoutePlanner = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen h-[100dvh] bg-[#F8F6F0]">
+    <div className="flex flex-col h-screen h-[100svh] bg-[#F8F6F0]">
       <Navbar />
       
       {/* Floating horizontal bar at the top (after Find best route is selected) */}
@@ -1281,8 +1285,8 @@ const RoutePlanner = () => {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            {/* MapController to handle bounds fitting */}
-            {routePlan && <MapController points={getMapPoints()} />}
+            {/* MapController to handle bounds fitting and layout invalidation */}
+            {routePlan && <MapController points={getMapPoints()} activeMobileTab={activeMobileTab} />}
 
             {/* Origin & Destination Markers */}
             {routePlan && (
