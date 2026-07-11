@@ -16,3 +16,5 @@ redis
 pytest
 google-play-scraper
 lxml
+youtube-search
+youtube-comment-downloader
