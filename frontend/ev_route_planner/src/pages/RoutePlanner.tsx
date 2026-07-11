@@ -59,7 +59,10 @@ const VEHICLES = [
   { name: 'Other Vehicle',  },
 ];
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_BASE || 
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:8000'
+    : 'https://evrify.onrender.com');
 
 // Custom Map Controller to handle bounds adjustment
 const MapController = ({ points }: { points: [number, number][] }) => {

@@ -68,7 +68,27 @@ def is_db_seeded():
         print(f"Could not check if DB is seeded: {e}")
         return False
 
+def init_schema():
+    schema_path = os.path.join(os.path.dirname(__file__), "schema.sql")
+    if not os.path.exists(schema_path):
+        print("schema.sql not found, skipping schema initialization.")
+        return
+    print("Initializing database schema from schema.sql...")
+    try:
+        conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+        cur = conn.cursor()
+        with open(schema_path, 'r') as f:
+            schema_sql = f.read()
+        cur.execute(schema_sql)
+        conn.commit()
+        cur.close()
+        conn.close()
+        print("Database schema initialization query executed.")
+    except Exception as e:
+        print(f"Failed to initialize schema: {e}")
+
 if __name__ == "__main__":
+    init_schema()
     if is_db_seeded():
         print("Database already contains stations. Skipping seeding.")
     else:

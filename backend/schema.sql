@@ -1,6 +1,6 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 
-CREATE TABLE stations (
+CREATE TABLE IF NOT EXISTS stations (
     id              SERIAL PRIMARY KEY,
     name            TEXT NOT NULL,
     location        GEOGRAPHY(POINT, 4326) NOT NULL,
@@ -14,9 +14,9 @@ CREATE TABLE stations (
     created_at      TIMESTAMP DEFAULT NOW(),
     updated_at      TIMESTAMP DEFAULT NOW()
 );
-CREATE INDEX idx_stations_location ON stations USING GIST(location);
+CREATE INDEX IF NOT EXISTS idx_stations_location ON stations USING GIST(location);
 
-CREATE TABLE reviews (
+CREATE TABLE IF NOT EXISTS reviews (
     id              SERIAL PRIMARY KEY,
     station_id      INTEGER REFERENCES stations(id) ON DELETE CASCADE,
     review_text     TEXT,
@@ -31,7 +31,7 @@ CREATE TABLE reviews (
     created_at      TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE routes (
+CREATE TABLE IF NOT EXISTS routes (
     id              SERIAL PRIMARY KEY,
     origin_lat      FLOAT,
     origin_lng      FLOAT,
