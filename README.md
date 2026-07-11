@@ -1,4 +1,4 @@
-# EVrify 🔋🚗
+# EVrify
 
 An end-to-end electric vehicle route planning application with NLP-scored charging station recommendations based on qualitative reviews. *EVrify your route.*
 
