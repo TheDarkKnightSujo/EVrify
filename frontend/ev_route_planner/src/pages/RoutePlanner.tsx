@@ -542,7 +542,7 @@ const RoutePlanner = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#F8F6F0]">
+    <div className="flex flex-col h-screen h-[100dvh] bg-[#F8F6F0]">
       <Navbar />
       
       {/* Floating horizontal bar at the top (after Find best route is selected) */}
@@ -1399,7 +1399,7 @@ const RoutePlanner = () => {
 
       {/* Mobile Bottom Navigation Bar */}
       {routePlan && !isShareView && (
-        <div className="md:hidden bg-[#FAF9F5] border-t border-[#1F3E2E]/10 flex items-center justify-around py-3 px-6 z-20 shrink-0">
+        <div className="md:hidden bg-[#FAF9F5] border-t border-[#1F3E2E]/10 flex items-center justify-around pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] px-6 z-20 shrink-0">
           <button
             onClick={() => setActiveMobileTab('inputs')}
             className={`flex flex-col items-center gap-1 text-[11px] font-bold ${
